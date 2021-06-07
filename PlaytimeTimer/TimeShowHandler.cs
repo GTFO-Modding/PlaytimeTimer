@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using PlaytimeTimer.Log;
 using System;
 using System.Threading;
 using TMPro;
@@ -9,21 +8,26 @@ namespace PlaytimeTimer
 {
     public class TimeShowHandler : MonoBehaviour
     {
+        private const int _SECONDSDAY_ = 60 * 60 * 24;
+        private const int _SECONDSHOUR_ = 60 * 60;
+        private const int _SECONDSMINUTE_ = 60;
+
         private Timer _intervalTimer;
         private bool _update;
-        private bool _active;
+        private bool _endskill;
 
         public TimeShowHandler(IntPtr intPtr) : base(intPtr)
         { }
 
         public void Awake()
         {
-            PlayTimeLogger.Debug("Awake Method got called");
+            //PlayTimeLogger.Debug("Awake Method got called");
 
+            _endskill = BepInExLoader.EndskillTime.Value;
             Current = this;
             if (_intervalTimer is null)
             {
-                _intervalTimer = new Timer((arg) => { _update = true; }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+                _intervalTimer = new Timer((arg) => { _update = true; }, null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(1));
             }
 
             var inventory = GuiManager.Current.m_playerLayer.Inventory;
@@ -57,7 +61,7 @@ namespace PlaytimeTimer
                     var rect = TextMesh.GetComponent<RectTransform>();
                     rect.anchoredPosition = new Vector2(-5f, 8f);
 
-                    TextMesh.SetText("Hello");
+                    TextMesh.SetText(_endskill ? "EndskillTimer" : "NotEndskillTimer");
                     TextMesh.ForceMeshUpdate();
                 }
             }
@@ -75,8 +79,45 @@ namespace PlaytimeTimer
             if (_update)
             {
                 _update = false;
-                TextMesh.SetText("Time: " + TimeSpan.FromSeconds((double)Clock.ExpeditionProgressionTime).ToString("hh':'mm':'ss"));
+                TextMesh.SetText("Time: " + GetTimeStringFormatted());
                 TextMesh.ForceMeshUpdate();
+            }
+        }
+
+        public string GetTimeStringFormatted()
+        {
+            if(!_endskill)
+            {
+                return TimeSpan.FromSeconds((double)Clock.ExpeditionProgressionTime).ToString("hh':'mm':'ss");
+            }
+            else
+            {
+                //very Random TimeCalculations OwO
+                var seconds = (int)Clock.ExpeditionProgressionTime - 9;
+                var minutes = 0;
+                var hours = 0;
+                int days;
+
+                if (seconds > (_SECONDSDAY_))
+                {
+                    days = seconds / _SECONDSDAY_;
+                    seconds = seconds - (days * _SECONDSDAY_);
+                }
+
+                if (seconds > (_SECONDSHOUR_))
+                {
+                    hours = seconds / (_SECONDSHOUR_);
+                    seconds = seconds - (hours * _SECONDSHOUR_);
+                }
+
+                if (seconds > _SECONDSMINUTE_)
+                {
+                    minutes = seconds / _SECONDSMINUTE_;
+                    seconds = seconds - (minutes * _SECONDSMINUTE_);
+                }
+
+                seconds += 9;
+                return $"{hours.ToString("00")}:{minutes.ToString("00")}:{seconds.ToString("00")}";
             }
         }
     }
@@ -89,8 +130,8 @@ namespace PlaytimeTimer
         [HarmonyPostfix]
         public static void PostFix()
         {
-            PlayTimeLogger.Debug("UpdateAllSlots Patch got called");
-            PlayTimeLogger.Debug(GameStateManager.CurrentStateName.ToString());
+            //PlayTimeLogger.Debug("UpdateAllSlots Patch got called");
+            //PlayTimeLogger.Debug(GameStateManager.CurrentStateName.ToString());
             if (!_isInjected)
             {
                 _isInjected = true;

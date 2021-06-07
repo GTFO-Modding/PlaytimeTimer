@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BepInExLoader.cs" />
-    <Compile Include="Log\PlayTimeLogger.cs" />
     <Compile Include="PlayTimeShowHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeShowHandler.cs" />

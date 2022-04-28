@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31025.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaytimeTimer", "PlaytimeTimer\PlaytimeTimer.csproj", "{121EBAEA-A85C-4DCA-A74F-3C9DC8827603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaytimeDisplay", "PlaytimeDisplay\PlaytimeDisplay.csproj", "{7ED7550B-E70C-4870-A6FB-EF5681FDADD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{121EBAEA-A85C-4DCA-A74F-3C9DC8827603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{121EBAEA-A85C-4DCA-A74F-3C9DC8827603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{121EBAEA-A85C-4DCA-A74F-3C9DC8827603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED7550B-E70C-4870-A6FB-EF5681FDADD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED7550B-E70C-4870-A6FB-EF5681FDADD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED7550B-E70C-4870-A6FB-EF5681FDADD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED7550B-E70C-4870-A6FB-EF5681FDADD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

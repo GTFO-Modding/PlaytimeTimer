@@ -29,6 +29,7 @@ namespace PlaytimeDisplay.Scripts
         public void Awake()
         {
             Data = EndskApi.Api.ProfileIndependentDataApi.Load<List<PlaytimeData>>(_DataFile);
+            StartPlaytime();
         }
 
         public void OnDestroy()
@@ -43,7 +44,7 @@ namespace PlaytimeDisplay.Scripts
         /// </summary>
         public List<PlaytimeData> Data { get; set; }
 
-        public void Start()
+        public void StartPlaytime()
         {
             Init();
 

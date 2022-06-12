@@ -35,7 +35,7 @@ namespace PlaytimeDisplay
             var playTime = gameObj.AddComponent<Playtime>();
             EndskApi.Api.CacheApi.SaveInstance(playTime);
 
-            EndskApi.Api.LevelApi.AddBeginLevelCallback(playTime.Start);
+            EndskApi.Api.LevelApi.AddBeginLevelCallback(playTime.StartPlaytime);
             EndskApi.Api.LevelApi.AddEndLevelCallback(playTime.SavePlaytime);
         }
     }
